@@ -3,8 +3,11 @@ import book3 from "../assets/book3.png";
 import Button2 from "./button2";
 import "../index.css";
 import Author from "./auuthor";
+import { useAuth } from "../Authcontext";
 
 export default function Main() {
+  const { user } = useAuth();
+
   const images = [
     "/book2.png",
   "/book2.jpg",
@@ -21,13 +24,14 @@ export default function Main() {
       gridItems.push(
         <div
           key={`${row}-${col}`}
-          className="relative w-full aspect-square overflow-visible"
+          className="md:relative w-full aspect-square overflow-visible"
         >
           {isImageCell && (
             <img
               src={images[row-1]}
               alt={`img-${row}-${col}`}
-              className="absolute top-40 left-1/2 -translate-x-1/2 translate-y-[-60%] h-[120px] w-auto scale-200  transition-transform duration-300 "
+              className="h-[120px] w-auto md:scale-200 scale-150 transition-transform duration-300
+            md:absolute md:top-40 md:left-1/2 md:-translate-x-1/2 md:translate-y-[-60%] "
             />
           )}
         </div>
@@ -36,13 +40,13 @@ export default function Main() {
   }
 
   return (
-    <main className="relative w-full">
-      <div className=" grid grid-cols-2 w-full px-10 h-screen gap-4">
-        <div className="flex flex-col align-middle pl-8 justify-start pt-24">
-          <h1 className="text-[4em] font-extrabold font-poppins mb-4">
+    <main className="relative w-full hide-scrollbar bg-gray-300">
+      <div className=" md:grid grid-cols-2 w-full px-10 h-screen gap-4">
+        <div className="flex flex-col align-middle pl-8 justify-start pt-12 md:pt-24">
+          <h1 className="text-[4rem] font-extrabold font-poppins mb-4">
             Stories that <br /> stay with you.
           </h1>
-          <p className="text-[1em] mb-8 text-black font-serif">
+          <p className="text-[1rem] mb-8 text-black font-serif">
             Step into countless worlds,
             <br /> all from the comfort of your screen.
             <br />
@@ -50,9 +54,9 @@ export default function Main() {
           </p>
 
           <Button2
-            link="./login"
+            link={user ? "/books" : "/login"}
             content="Explore Now"
-            classname="w-[12vw]"
+            classname="md:w-[12vw] w-[40vw]"
             classname2="pr-4 after:content-['|_'] after:ml-2 after:inline-block"
             icon={
               <svg
@@ -71,27 +75,23 @@ export default function Main() {
           />
         </div>
 
-        <div className=" overflow-x-hidden overflow-y-hidden pt-20 ">
-          {/* <div className="absolute top-100 left-80 text-[3vh] font-bold">Escape</div> */}
-          <div className="absolute top-20 left-[80%]   text-[8vh] font-bold">
-            Read
-          </div>
-          <div className="absolute top-40 text-[2vh] left-[80%] ">by millions</div>
+        <div className=" md:overflow-x-hidden md:overflow-y-hidden md:pt-20 ">
           <div
-            className="grid grid-cols-3 grid-rows-3 "
+            className="hidden md:grid grid-cols-3 grid-rows-3 "
             style={{ width: "100%", maxWidth: "100rem", height: "50%" }}
           >
             {gridItems}
           </div>
         </div>
       </div>
-      <div className="relative flex flex-row -mt-8 h-fit gap-12">
+      
+      <div className="relative md:flex flex-row -mt-8 h-fit gap-12">
         <img
-          className="absolute h-[110px] -rotate-30 left-32 top-2"
+          className="absolute h-[110px] -rotate-30 left-32 top-6 md:top-2"
           src="./imgb.png"
         />
         <img src={book3} alt="best seller" className="h-[50vh] " />
-        <div className="flex flex-col pt-4">
+        <div className="md:flex flex-col px-4 pt-4">
           <div className="font-extrabold text-[3vh] font-poppins pb-4">
             Curated from top charts,trending now.
           </div>
@@ -109,7 +109,7 @@ export default function Main() {
           </ol>
         </div>
       </div>
-        <div className="font-extrabold font-poppins text-4xl pl-8 m-6">
+        <div className="font-extrabold font-poppins mt-16 mx-auto text-4xl pl-8 md:m-6">
           Author's Section
         </div>
         <Author/>

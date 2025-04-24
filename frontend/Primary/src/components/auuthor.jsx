@@ -29,7 +29,7 @@ export default function Author() {
     }
   };
   return (
-    <div className="grid grid-row-[95%,5%] mx-16 ">
+    <div className="md:grid grid-row-[95%,5%] mx-16 ">
       <AnimatePresence mode="wait">
         <motion.div
           key={arr[Count].name}
@@ -37,22 +37,22 @@ export default function Author() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-row items-start gap-12 my-8 transition-all duration-300"
+          className="md:flex flex-row items-start gap-12 my-8 transition-all duration-300"
         >
           <img
             src={arr[Count].link}
             alt={arr[Count].name}
-            className="h-[380px] w-[35%] rounded-4xl object-cover cursor-pointer hover:scale-95 transition-all duration-300 mx-8"
+            className="md:h-[380px] h-[200px] w-auto md:w-[35%] mx-auto rounded-full md:rounded-4xl object-cover cursor-pointer hover:scale-95 transition-all duration-300 md:mx-8"
           />
           <div className="p-4 rounded-xl flex-1 ">
             <div className="text-2xl font-bold font-poppins tracking-wide">
               {arr[Count].name}
             </div>
-            <div className="mt-2 max-w-[80%]">{arr[Count].desc}</div>
+            <div className="mt-2 md:max-w-[80%]">{arr[Count].desc}</div>
           </div>
 
           <HiArrowCircleRight
-            className="w-12 h-12 mt-8 mr-4 cursor-pointer text-gray-600 hover:text-black"
+            className="w-12 h-12 mt-8 md:mr-4 mx-auto cursor-pointer text-gray-600 hover:text-black"
             onClick={handleClick}
           />
         </motion.div>

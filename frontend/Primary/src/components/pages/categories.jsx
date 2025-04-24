@@ -1,13 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import Footer from "../footer";
 import Card from "../card";
-import { useAuth } from "../../Authcontext";
 import NavbarWrapper from "../nav";
 
 export default function Categories() {
-  
-   const {user}=useAuth();
-   console.log(user)
+  const navigate = useNavigate();
    const card=[
       {
          link:"horror.jpg",
@@ -57,9 +55,10 @@ export default function Categories() {
    ]
    
   return (
-    <div className="w-full h-auto bg-white/80">
+    <div className="w-full h-auto bg-gray-300">
      <NavbarWrapper/>
-     <div className="text-center text-5xl font-poppins my-12">Find stories you love.</div>
+     <div className="text-center text-5xl font-poppins mt-12 mb-2">Find stories you love.</div>
+     <div className="text-center w-[9%] border-t-[2px] rounded-b-full mx-auto mb-12 border-gray-400"></div>
      <div className="text-center">Explore genres from mystery to fantasy, romance to horror—there’s something for everyone.</div> 
       <div className="p-8 m-8 flex flex-row flex-wrap gap-10">
         {card.map(({ link,title, content }, index) => (
@@ -68,7 +67,7 @@ export default function Categories() {
             link={link} 
             title={title}
             content={content}
-            
+            onClick={() => navigate(`/books?query=${title}`)}
           />
         ))}
       </div>
@@ -76,3 +75,4 @@ export default function Categories() {
     </div>
   );
 }
+

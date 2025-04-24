@@ -40,19 +40,34 @@ const bookSchema = new mongoose.Schema({
     trim: true
   },
 
-  rentedBy: {
+  rentedBy: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null
-  },
+    ref: 'User'
+  }],
 
   rentCount: {
     type: Number,
     default: 0
   },
 
+  reviews: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    review: {
+      type: String,
+      required: true,
+      trim: true
+    }
+  }],
+
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
+
+const Book = mongoose.model('book', bookSchema);
+module.exports = Book;

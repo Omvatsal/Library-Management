@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const users = require('../model/user');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -5,7 +6,7 @@ require('dotenv').config();
 const SECRET_KEY = process.env.JWT_SECRET || "hbjaj4gha$asf@asvv";
 
 const handlePostrequest = async (req, res) => {
-  const { firstName, secondName, email, username, confirmPassword } = req.body;
+  const { firstName, secondName, email, username, password, confirmPassword } = req.body;
 
   try {
     const existingUser = await users.findOne({ username });
@@ -13,21 +14,24 @@ const handlePostrequest = async (req, res) => {
       return res.status(409).json({ message: "Username already taken" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await users.create({
       firstName,
       lastName: secondName,
       email,
       username,
-      password: confirmPassword, 
+      password: hashedPassword, 
     });
 
+
     const token = jwt.sign(
-      { id: newUser._id, username: newUser.username,email: newUser.email, },
+      { id: newUser._id, username: newUser.username, email: newUser.email },
       SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    return res.status(201).json({ 
+    return res.status(201).json({
       message: "User created successfully",
       token
     });
